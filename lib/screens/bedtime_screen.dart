@@ -2,26 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class BedtimeScreen extends StatefulWidget {
+  const BedtimeScreen({super.key});
+
   @override
-  _BedtimeScreenState createState() => _BedtimeScreenState();
+  State<BedtimeScreen> createState() => _BedtimeScreenState();
 }
 
 class _BedtimeScreenState extends State<BedtimeScreen> {
-  final AudioPlayer _player = AudioPlayer();
+  final player = AudioPlayer();
   bool isPlaying = false;
 
-  void _toggleMusic() async {
+  void toggleMusic() async {
     if (isPlaying) {
-      await _player.stop();
+      await player.stop();
     } else {
-      await _player.play(AssetSource('radio_audio/tabtale_hush_little_baby.mp3'));
+      await player.play(AssetSource('radio_audio/tabtale_hush_little_baby.mp3'));
     }
-    setState(() { isPlaying = !isPlaying; });
+    setState(() => isPlaying = !isPlaying);
   }
 
   @override
   void dispose() {
-    _player.dispose();
+    player.dispose();
     super.dispose();
   }
 
@@ -29,7 +31,7 @@ class _BedtimeScreenState extends State<BedtimeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/backgrounds/bedroom_background.png'),
             fit: BoxFit.cover,
@@ -37,24 +39,15 @@ class _BedtimeScreenState extends State<BedtimeScreen> {
         ),
         child: Stack(
           children: [
+            Center(child: Image.asset('assets/characters/hope_ferrer.png', height: 300)),
             Positioned(
-              left: 200,
-              bottom: 100,
-              child: Image.asset('assets/characters/hope_ferrer.png', height: 200),
-            ),
-            Positioned(
-              left: 50,
-              top: 50,
-              child: GestureDetector(
-                onTap: _toggleMusic,
-                child: Image.asset('assets/items_and_objects/radio.png', width: 100),
+              bottom: 50, right: 50,
+              child: IconButton(
+                iconSize: 100,
+                icon: Image.asset('assets/items_and_objects/radio.png'),
+                onPressed: toggleMusic,
               ),
             ),
-            if (isPlaying) 
-              Positioned(
-                left: 70, top: 20,
-                child: Icon(Icons.music_note, color: Colors.white, size: 40),
-              ),
           ],
         ),
       ),
