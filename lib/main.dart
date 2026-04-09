@@ -9,10 +9,10 @@ void main() {
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
   ]);
-  runApp(KujdesiSweetBabyApp());
+  runApp(MyApp());
 }
 
-class KujdesiSweetBabyApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
