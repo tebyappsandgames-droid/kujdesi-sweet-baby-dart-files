@@ -1,48 +1,43 @@
 import 'package:flutter/material.dart';
 
 class DoctorCheckupScreen extends StatelessWidget {
+  const DoctorCheckupScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/backgrounds/hospital_background.png'),
             fit: BoxFit.cover,
           ),
         ),
-        child: Stack(
+        child: Column(
           children: [
-            Center(
-              child: Image.asset('assets/characters/hope_ferrer.png', height: 400),
-            ),
-            Positioned(
-              bottom: 20,
-              left: 0,
-              right: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+            const SizedBox(height: 50),
+            Expanded(child: Image.asset('assets/characters/hope_ferrer.png')),
+            Container(
+              height: 120,
+              color: Colors.white.withOpacity(0.5),
+              child: ListView(
+                scrollDirection: Axis.horizontal,
                 children: [
                   _tool('assets/medical_tools/thermometer.png'),
                   _tool('assets/medical_tools/bandage.png'),
                   _tool('assets/medical_tools/medicine.png'),
-                  _tool('assets/medical_tools/toothbrush.png'),
+                  _tool('assets/medical_tools/sprayer.png'),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _tool(String path) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      child: Draggable(
-        feedback: Image.asset(path, width: 80),
-        child: Image.asset(path, width: 60),
-      ),
-    );
-  }
+  Widget _tool(String path) => Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Image.asset(path, width: 80),
+  );
 }
