@@ -1,69 +1,51 @@
 import 'package:flutter/material.dart';
 import 'make_healthy_juice_screen.dart';
 
-class FeedScreen extends StatefulWidget {
-  @override
-  _FeedScreenState createState() => _FeedScreenState();
-}
-
-class _FeedScreenState extends State<FeedScreen> {
-  bool isFeeding = false;
+class FeedScreen extends StatelessWidget {
+  const FeedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/backgrounds/kitchen_background.png'),
-                fit: BoxFit.cover,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/backgrounds/kitchen_background.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Stack(
+          children: [
+            Positioned(
+              left: 50, bottom: 100,
+              child: Image.asset('assets/characters/hope_ferrer.png', height: 400),
+            ),
+            Positioned(
+              right: 20, top: 50,
+              child: Column(
+                children: [
+                  _item('assets/items_and_objects/bowl_of_porridge.png'),
+                  _item('assets/items_and_objects/baby_bottle.png'),
+                  const SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MakeHealthyJuiceScreen())),
+                    child: Image.asset('assets/buttons/make_healthy_juice_button.png', width: 100),
+                  ),
+                ],
               ),
             ),
-          ),
-          Positioned(
-            right: 100,
-            bottom: 50,
-            child: Image.asset('assets/characters/hope_ferrer.png', height: 350),
-          ),
-          // Rafti i ushqimeve
-          Positioned(
-            left: 20,
-            top: 100,
-            child: Column(
-              children: [
-                Draggable(
-                  data: 'porridge',
-                  feedback: Image.asset('assets/items_and_objects/bowl_of_porridge.png', width: 100),
-                  child: Image.asset('assets/items_and_objects/bowl_of_porridge.png', width: 80),
-                ),
-                SizedBox(height: 10),
-                IconButton(
-                  icon: Image.asset('assets/buttons/make_healthy_juice_button.png'),
-                  iconSize: 100,
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => MakeHealthyJuiceScreen()));
-                  },
-                ),
-              ],
-            ),
-          ),
-          DragTarget<String>(
-            onAccept: (data) {
-              setState(() { isFeeding = true; });
-              Future.delayed(Duration(seconds: 2), () => setState(() => isFeeding = false));
-            },
-            builder: (context, candidateData, rejectedData) {
-              return Positioned(
-                right: 150,
-                bottom: 250,
-                child: Container(width: 100, height: 100, color: Colors.transparent),
-              );
-            },
-          ),
-        ],
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _item(String path) {
+    return Draggable(
+      data: path,
+      feedback: Image.asset(path, width: 80),
+      childWhenDragging: Opacity(opacity: 0.5, child: Image.asset(path, width: 80)),
+      child: Image.asset(path, width: 80),
     );
   }
 }
