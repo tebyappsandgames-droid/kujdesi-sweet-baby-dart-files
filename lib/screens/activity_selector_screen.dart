@@ -7,10 +7,12 @@ import 'dress_up_screen.dart';
 import 'playtime_screen.dart';
 
 class ActivitySelectorScreen extends StatelessWidget {
-  Widget _buildActivityButton(BuildContext context, String assetPath, Widget targetScreen) {
+  const ActivitySelectorScreen({super.key});
+
+  Widget _buildActivityButton(BuildContext context, String asset, Widget screen) {
     return GestureDetector(
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => targetScreen)),
-      child: Image.asset(assetPath, width: 120, height: 120),
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => screen)),
+      child: Image.asset(asset, width: 120),
     );
   }
 
@@ -18,32 +20,22 @@ class ActivitySelectorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/backgrounds/activity_background.png'),
             fit: BoxFit.cover,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: GridView.count(
+          crossAxisCount: 2,
+          padding: const EdgeInsets.all(40),
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildActivityButton(context, 'assets/toddler_care_buttons/feed_button.png', FeedScreen()),
-                _buildActivityButton(context, 'assets/toddler_care_buttons/bedtime_button.png', BedtimeScreen()),
-                _buildActivityButton(context, 'assets/toddler_care_buttons/bathtime_button.png', BathtimeScreen()),
-              ],
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildActivityButton(context, 'assets/toddler_care_buttons/doctor_checkup_button.png', DoctorCheckupScreen()),
-                _buildActivityButton(context, 'assets/toddler_care_buttons/dress_up_button.png', DressUpScreen()),
-                _buildActivityButton(context, 'assets/toddler_care_buttons/playtime_button.png', PlaytimeScreen()),
-              ],
-            ),
+            _buildActivityButton(context, 'assets/toddler_care_buttons/feed_button.png', const FeedScreen()),
+            _buildActivityButton(context, 'assets/toddler_care_buttons/bedtime_button.png', const BedtimeScreen()),
+            _buildActivityButton(context, 'assets/toddler_care_buttons/bathtime_button.png', const BathtimeScreen()),
+            _buildActivityButton(context, 'assets/toddler_care_buttons/doctor_checkup_button.png', const DoctorCheckupScreen()),
+            _buildActivityButton(context, 'assets/toddler_care_buttons/dress_up_button.png', const DressUpScreen()),
+            _buildActivityButton(context, 'assets/toddler_care_buttons/playtime_button.png', const PlaytimeScreen()),
           ],
         ),
       ),
