@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'screens/intro_screen.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  // Bllokojmë orientimin në Landscape për një eksperiencë loje më të mirë
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
-  ]);
-  runApp(MyApp());
+  runApp(const SweetBabyCareApp());
 }
 
-class MyApp extends StatelessWidget {
+class SweetBabyCareApp extends StatelessWidget {
+  const SweetBabyCareApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,7 +17,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'ChalkboardSE', // Duke përdorur fontin tuaj
         primarySwatch: Colors.pink,
       ),
-      home: IntroScreen(),
+      home: const IntroScreen(),
     );
   }
 }
